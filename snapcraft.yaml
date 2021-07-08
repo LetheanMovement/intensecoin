@@ -1,0 +1,52 @@
+name: lethean-daemon
+version: 3.1.0
+summary: Cryptocoin client for Lethean network - daemon and tools
+description: |
+ Lethean (LTHN) is an open-source cryptocurrency
+ that provides blockchain backed, distributed VPN services.
+ This package provides the daemon letheand for Full Lethean client,
+ and command-line tools to interact with the daemon.
+confinement: devmode
+base: core18
+parts:
+  lethean-daemon:
+    plugin: make
+    make-parameters:
+      - release
+    artifacts:
+      - build/release/bin/letheand
+      - build/release/bin/lethean-wallet-cli
+      - build/release/bin/lethean-wallet-rpc
+      - build/release/bin/lethean-wallet-vpn-rpc
+      - build/release/bin/lethean-blockchain-export
+      - build/release/bin/lethean-blockchain-import
+    source-type: git
+    source: https://github.com/LetheanMovement/lethean
+    build-packages:
+      - cmake
+      - build-essential
+      - pkg-config
+      - libboost-all-dev
+      - libssl-dev
+      - libunbound-dev
+      - libminiupnpc-dev
+      - libunwind8-dev
+      - liblzma-dev
+      - libldns-dev
+      - libexpat1-dev
+    stage-packages:
+      - libboost-chrono1.65.1
+      - libboost-filesystem1.65.1
+      - libboost-program-options1.65.1
+      - libboost-regex1.65.1
+      - libboost-serialization1.65.1
+      - libboost-system1.65.1
+      - libboost-thread1.65.1
+      - libssl1.1
+      - libunbound2
+      - libminiupnpc10
+apps:
+  lethean-daemon:
+    command: build/release/bin/letheand
+  lethean-wallet-cli:
+    command: build/release/bin/lethean-wallet-cli
